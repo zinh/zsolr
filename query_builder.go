@@ -1,10 +1,10 @@
 package solr
 
-type queryParam [string]string
+type queryParams [string]string
 
 type queryBuilder struct {
-  q queryParam
-  fq queryParam
+  q queryParams
+  fq queryParams
   sort [string]
   start int
   rows int
@@ -12,7 +12,16 @@ type queryBuilder struct {
 }
 
 // q
-func (query *queryBuilder) Query(q queryParam) queryBuilder {
+func (query *queryBuilder) Query(q queryParams) queryBuilder {
+  if q.queryParams ==  nil {
+    q.queryParams = q
+  } else {
+    // merge with current
+    for k, v := range q {
+      q.queryParams[k] = v
+    }
+  }
+  return query
 }
 
 // fq
@@ -28,7 +37,7 @@ func (query *queryBuilder) Start() queryBuilder {
 }
 
 // rows
-func (query *queryBuilder) Rows() queryBuilder {
+func (query *queryBuilder) Limit() queryBuilder {
 }
 
 // select
