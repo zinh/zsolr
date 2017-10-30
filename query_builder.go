@@ -1,10 +1,18 @@
 package solr
 
+type queryParam [string]string
+
 type queryBuilder struct {
+  q queryParam
+  fq queryParam
+  sort [string]
+  start int
+  rows int
+  fl [string]
 }
 
 // q
-func (query *queryBuilder) Query() queryBuilder {
+func (query *queryBuilder) Query(q queryParam) queryBuilder {
 }
 
 // fq
